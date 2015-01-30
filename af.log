@@ -1,0 +1,136 @@
+[33mcommit 4d3cb8faa029d16a4c37e01df8de0420f1c85b0f[m
+Author: shubhamgoel27 <shubhamgoel27@gmail.com>
+Date:   Fri Jan 30 17:50:13 2015 +0530
+
+    Organized code
+
+[1mdiff --git a/Sorting/Inversion_count.py b/Sorting/Inversion_count.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..84d56ea[m
+[1m--- /dev/null[m
+[1m+++ b/Sorting/Inversion_count.py[m
+[36m@@ -0,0 +1,58 @@[m
+[32m+[m[32m# -*- coding: utf-8 -*-[m
+[32m+[m[32m"""[m
+[32m+[m[32mCreated on Mon Jan 26 21:18:26 2015[m
+[32m+[m
+[32m+[m[32m@author: shubham[m
+[32m+[m[32m"""[m
+[32m+[m
+[32m+[m[32mdef count_split(A,B):[m
+[32m+[m[32m    ''' Returns the number of inversions of the original array split into two sorted arrays[m
+[32m+[m[32m        A is the right part of that array and B the left one. '''[m
+[32m+[m[41m        [m
+[32m+[m[32m    n = len(A) + len(B)[m
+[32m+[m[32m    C = [][m
+[32m+[m[32m    i=0[m
+[32m+[m[32m    j=0[m
+[32m+[m[32m    invs = 0[m
+[32m+[m[32m    for k in range(n):[m
+[32m+[m[32m        if A[i] < B[j]:[m
+[32m+[m[32m            C.append(A[i])[m
+[32m+[m[32m            i+=1[m
+[32m+[m[32m        elif A[i] > B[j]:[m
+[32m+[m[32m            C.append(B[j])[m
+[32m+[m[32m            j+=1[m
+[32m+[m[32m            invs += (len(A)-i)[m
+[32m+[m[32m        if i==len(A):[m
+[32m+[m[32m            C = C + B[j:][m
+[32m+[m[32m            return invs, C[m
+[32m+[m[32m        if j==len(B):[m[41m            [m
+[32m+[m[32m            C = C + A[i:][m
+[32m+[m[32m            return invs, C[m[41m            [m
+[32m+[m[32m    return invs, C[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef inversion(A):[m
+[32m+[m[32m    """ Returns the total number of inversions and the sorted array[m
+[32m+[m[32m        Takes an array as an input[m
+[32m+[m[32m        Uses a modified merge sort thus having O(nlogn) running time[m
+[32m+[m[32m    """[m
+[32m+[m[32m    n = len(A)[m
+[32m+[m[32m    if n==1:[m
+[32m+[m[32m        return 0, A[m
+[32m+[m[32m    else:[m
+[32m+[m[32m        left_inv, left = inversion(A[:n/2])[m
+[32m+[m[32m        right_inv, right = inversion(A[n/2:])[m
+[32m+[m[32m        split, merged = count_split( left, right)[m
+[32m+[m[32m    return left_inv + right_inv + split, merged[m[41m    [m
+[32m+[m[41m    [m
+[32m+[m[32mdef read_array(path):[m
+[32m+[m[32m    ''' Reads data of the following format into an integer array:[m
+[32m+[m[32m        Each line of the input should have single integer element[m[41m [m
+[32m+[m[32m        '''[m
+[32m+[m[32m    f = open(path)[m
+[32m+[m[32m    long_array = f.readlines()[m
+[32m+[m[32m    long_array = [int(x) for x in long_array][m
+[32m+[m[32m    return long_array[m
+[32m+[m[41m        [m
+[32m+[m[32minversions, sorted_array = inversion(read_array('Data/IntegerArray.txt'))[m
+[32m+[m[32mprint inversions[m
+[1mdiff --git a/ads b/ads[m
+[1mnew file mode 100644[m
+[1mindex 0000000..87c0468[m
+[1m--- /dev/null[m
+[1m+++ b/ads[m
+[36m@@ -0,0 +1,59 @@[m
+[32m+[m[32m# -*- coding: utf-8 -*-[m
+[32m+[m[32m"""[m
+[32m+[m[32mCreated on Mon Jan 26 21:18:26 2015[m
+[32m+[m
+[32m+[m[32m@author: shubham[m
+[32m+[m[32m"""[m
+[32m+[m
+[32m+[m[32mdef count_split(A,B):[m
+[32m+[m[32m    ''' Returns the number of inversions of the original array split into two sorted arrays[m
+[32m+[m[32m        A is the right part of that array and B the left one. '''[m
+[32m+[m[41m        [m
+[32m+[m[32m    n = len(A) + len(B)[m
+[32m+[m[32m    C = [][m
+[32m+[m[32m    i=0[m
+[32m+[m[32m    j=0[m
+[32m+[m[32m    invs = 0[m
+[32m+[m[32m    for k in range(n):[m
+[32m+[m[32m        if A[i] < B[j]:[m
+[32m+[m[32m            C.append(A[i])[m
+[32m+[m[32m            i+=1[m
+[32m+[m[32m        elif A[i] > B[j]:[m
+[32m+[m[32m            C.append(B[j])[m
+[32m+[m[32m            j+=1[m
+[32m+[m[32m            invs += (len(A)-i)[m
+[32m+[m[32m        if i==len(A):[m
+[32m+[m[32m            C = C + B[j:][m
+[32m+[m[32m            return invs, C[m
+[32m+[m[32m        if j==len(B):[m[41m            [m
+[32m+[m[32m            C = C + A[i:][m
+[32m+[m[32m            return invs, C[m[41m            [m
+[32m+[m[32m    return invs, C[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef inversion(A):[m
+[32m+[m[32m    """ Returns the total number of inversions and the sorted array[m
+[32m+[m[32m        Takes an array as an input[m
+[32m+[m[32m        Uses a modified merge sort thus having O(nlogn) running time[m
+[32m+[m[32m    """[m
+[32m+[m[32m    n = len(A)[m
+[32m+[m[32m    if n==1:[m
+[32m+[m[32m        return 0, A[m
+[32m+[m[32m    else:[m
+[32m+[m[32m        left_inv, left = inversion(A[:n/2])[m
+[32m+[m[32m        right_inv, right = inversion(A[n/2:])[m
+[32m+[m[32m        split, merged = count_split( left, right)[m
+[32m+[m[32m    return left_inv + right_inv + split, merged[m[41m    [m
+[32m+[m[41m    [m
+[32m+[m[32mdef read_array(path):[m
+[32m+[m[32m    ''' Reads data of the following format into an integer array:[m
+[32m+[m[32m        Each line of the input should have single integer element[m[41m [m
+[32m+[m[32m        '''[m
+[32m+[m[32m    f = open(path)[m
+[32m+[m[32m    long_array = f.readlines()[m
+[32m+[m[32m    long_array = [int(x) for x in long_array][m
+[32m+[m[32m    return long_array[m
+[32m+[m[41m        [m
+[32m+[m[32minversions, sorted_array = inversion(read_array('Data/IntegerArray.txt'))[m
+[32m+[m[32mprint inversions[m
+[32m+[m[41m [m
+\ No newline at end of file[m
